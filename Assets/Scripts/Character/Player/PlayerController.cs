@@ -42,15 +42,18 @@ public class PlayerController : BaseCharacterController
 
     public void OnClick(InputAction.CallbackContext callback)
     {
-#if UNITY_ANDROID || UNITY_IOS
-        tapPoint = Touchscreen.current.primaryTouch.position.ReadValue();
-#elif UNITY_STANDALONE
-        tapPoint = Mouse.current.position.ReadValue();
-#endif
-        Ray ray = playerCamera.ScreenPointToRay(tapPoint);
-        if (Physics.Raycast(ray, out RaycastHit raycastHitInfo))
+        if (isActive)
         {
-            agent.SetDestination(raycastHitInfo.point);
+#if UNITY_ANDROID || UNITY_IOS
+            tapPoint = Touchscreen.current.primaryTouch.position.ReadValue();
+#elif UNITY_STANDALONE
+            tapPoint = Mouse.current.position.ReadValue();
+#endif
+            Ray ray = playerCamera.ScreenPointToRay(tapPoint);
+            if (Physics.Raycast(ray, out RaycastHit raycastHitInfo))
+            {
+                agent.SetDestination(raycastHitInfo.point);
+            }
         }
     }
 }

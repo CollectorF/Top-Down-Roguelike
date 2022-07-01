@@ -6,10 +6,12 @@ using UnityEngine.AI;
 public class BaseCharacterController : MonoBehaviour
 {
     [SerializeField]
-    protected CharacterStarterInfo starterInfo;
+    internal CharacterStarterInfo starterInfo;
 
     protected StatsSystem stats; 
     protected NavMeshAgent agent;
+
+    public bool isActive { get; set; }
 
     public delegate void DieEvent(BaseCharacterController controller);
 
@@ -43,5 +45,7 @@ public class BaseCharacterController : MonoBehaviour
         {
             agent.speed = newState.Speed;
         }
+        Debug.Log("Bonus " + newState.Bonus);
+        Debug.Log("Health " + newState.Health);
     }
 }

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f66cc5642cf1a1348ab30d6461b6e33e, type: 3}
   m_Name: Friend
   m_EditorClassIdentifier: 
-  Speed: 2
+  Speed: 0
   Bonus: 1
+  Damage: 0
   MaxHealth: 1
