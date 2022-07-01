@@ -10,11 +10,8 @@ public class PlayerController : BaseCharacterController
 {
     [SerializeField]
     private InputAction clickInputAction;
-    [SerializeField]
-    private InputAction posInputAction;
 
     private Camera playerCamera;
-    private Vector3 aimPoint;
     private Vector3 tapPoint;
 
     public PlayerState State => (PlayerState)stats.State;
@@ -23,9 +20,8 @@ public class PlayerController : BaseCharacterController
     {
         base.Awake();
         clickInputAction.Enable();
-        posInputAction.Enable();
         clickInputAction.performed += OnClick;
-        playerCamera = GetComponentInChildren<Camera>();
+        playerCamera = Camera.main;
     }
 
     protected override void Start()
@@ -37,7 +33,6 @@ public class PlayerController : BaseCharacterController
     {
         clickInputAction.performed -= OnClick;
         clickInputAction.Disable();
-        posInputAction.Disable();
     }
 
     protected override BaseState InitializeState()
@@ -52,8 +47,10 @@ public class PlayerController : BaseCharacterController
 #elif UNITY_STANDALONE
         tapPoint = Mouse.current.position.ReadValue();
 #endif
-        tapPoint += playerCamera.transform.forward * 10f;
-        aimPoint = playerCamera.ScreenToWorldPoint(tapPoint);
-        agent.SetDestination(aimPoint);
+        Ray ray = playerCamera.ScreenPointToRay(tapPoint);
+        if (Physics.Raycast(ray, out RaycastHit raycastHitInfo))
+        {
+            agent.SetDestination(raycastHitInfo.point);
+        }
     }
 }

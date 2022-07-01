@@ -39,5 +39,9 @@ public class BaseCharacterController : MonoBehaviour
         {
             OnDie?.Invoke(this);
         }
+        if (oldState == null || oldState.Speed != newState.Speed)
+        {
+            agent.speed = newState.Speed;
+        }
     }
 }
