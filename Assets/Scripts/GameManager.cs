@@ -48,4 +48,9 @@ public class GameManager : MonoBehaviour
             item.SetRandomDestination();
         }
     }
+
+    internal void UpdateStats(BaseState oldState, BaseState newState)
+    {
+        uiManager.UpdateStats(oldState, newState);
+    }
 }

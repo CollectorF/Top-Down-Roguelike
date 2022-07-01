@@ -11,17 +11,26 @@ public class PlayerController : BaseCharacterController
     [SerializeField]
     private InputAction clickInputAction;
 
+    internal bool isDead = false;
     private Camera playerCamera;
     private Vector3 tapPoint;
+    private GameManager gameManager;
 
     public PlayerState State => (PlayerState)stats.State;
 
     protected override void Awake()
     {
         base.Awake();
+        gameManager = FindObjectOfType<GameManager>();
+        if (gameManager == null)
+        {
+            Debug.LogError($"GameManager cannot be found on scene, make sure you've created it");
+        }
+        OnDie += controller => isDead = true;
         clickInputAction.Enable();
         clickInputAction.performed += OnClick;
         playerCamera = Camera.main;
+        stats.OnStateChanged += gameManager.UpdateStats;
     }
 
     protected override void Start()

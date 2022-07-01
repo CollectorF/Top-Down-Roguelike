@@ -10,6 +10,8 @@ public class UIManager : MonoBehaviour
     private GameObject gameplayUI;
     [SerializeField]
     private GameObject endUI;
+    [SerializeField]
+    private GameplayUI gameplayUiManager;
 
 
     public delegate void StartEvent();
@@ -40,5 +42,10 @@ public class UIManager : MonoBehaviour
     public void OnStartClick()
     {
         OnStart?.Invoke();
+    }
+
+    internal void UpdateStats(BaseState oldState, BaseState newState)
+    {
+        gameplayUiManager.OnStateUpdate(oldState, newState);
     }
 }
