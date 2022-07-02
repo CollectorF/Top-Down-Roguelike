@@ -1,8 +1,8 @@
 public class BonusStateChange : BaseStateChange
 {
-    protected float bonusAdjustment;
+    protected int bonusAdjustment;
 
-    public BonusStateChange(float bonusAdjustment)
+    public BonusStateChange(int bonusAdjustment)
     {
         this.bonusAdjustment = bonusAdjustment;
     }

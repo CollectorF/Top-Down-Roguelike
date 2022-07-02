@@ -1,28 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public enum GameState
-{
-    Start,
-    Running,
-    End
-}
-
+[RequireComponent(typeof(PlayerPrefsManager))]
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
     private UIManager uiManager;
 
-    private GameState gameState;
     private BaseCharacterController[] characterControllers;
     private RandomPointGenerator[] pointGenerators;
+
+    private BaseState currentPlayerState;
+    private PlayerPrefsManager prefsManager;
+
+    private int bestScore;
 
     private void Awake()
     {
         uiManager.OnStart += StartGame;
         characterControllers = FindObjectsOfType<BaseCharacterController>();
         pointGenerators = FindObjectsOfType<RandomPointGenerator>();
+        prefsManager = GetComponent<PlayerPrefsManager>();
         foreach (var item in characterControllers)
         {
             item.isActive = false;
@@ -31,13 +31,12 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        gameState = GameState.Start;
         uiManager.ActivateStartUI();
+        prefsManager.LoadPlayerPrefs(out bestScore);
     }
 
-    private void StartGame()
+    public void StartGame()
     {
-        gameState = GameState.Running;
         uiManager.ActivateGameplayUI();
         foreach (var item in characterControllers)
         {
@@ -52,5 +51,23 @@ public class GameManager : MonoBehaviour
     internal void UpdateStats(BaseState oldState, BaseState newState)
     {
         uiManager.UpdateStats(oldState, newState);
+        currentPlayerState = newState;
+    }
+
+    internal void EndGame(BaseCharacterController controller)
+    {
+        if (currentPlayerState.Bonus > bestScore)
+        {
+            bestScore = currentPlayerState.Bonus;
+        }
+        prefsManager.SavePlayerPrefs(bestScore);
+        controller.isActive = false;
+        uiManager.ShowScoreboard(currentPlayerState, bestScore);
+        uiManager.ActivateEndUI();
+    }
+
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(0);
     }
 }

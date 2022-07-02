@@ -1,8 +1,8 @@
 public class HealthStateChange : BaseStateChange
 {
-    protected float healthAdjustment;
+    protected int healthAdjustment;
 
-    public HealthStateChange(float healthAdjustment)
+    public HealthStateChange(int healthAdjustment)
     {
         this.healthAdjustment = healthAdjustment;
     }

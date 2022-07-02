@@ -19,7 +19,7 @@ public class GameplayUI : MonoBehaviour
 
     private void UpdateLifes(float value, float maxValue)
     {
-        lifesText.text = $"Lifes: {value}/{maxValue}";
+        lifesText.text = $"Lives: {value}/{maxValue}";
     }
 
     internal void OnStateUpdate(BaseState oldState, BaseState newState)

@@ -4,7 +4,7 @@ using UnityEngine;
 public class CharacterStarterInfo : ScriptableObject
 {
     public float Speed;
-    public float Bonus;
-    public float Damage;
-    public float MaxHealth;
+    public int Bonus;
+    public int Damage;
+    public int MaxHealth;
 }

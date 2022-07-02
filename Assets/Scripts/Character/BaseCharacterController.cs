@@ -40,12 +40,11 @@ public class BaseCharacterController : MonoBehaviour
         if (newState.Health <= 0)
         {
             OnDie?.Invoke(this);
+            agent.isStopped = true;
         }
         if (oldState == null || oldState.Speed != newState.Speed)
         {
             agent.speed = newState.Speed;
         }
-        Debug.Log("Bonus " + newState.Bonus);
-        Debug.Log("Health " + newState.Health);
     }
 }

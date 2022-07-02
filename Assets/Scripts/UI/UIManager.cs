@@ -12,6 +12,8 @@ public class UIManager : MonoBehaviour
     private GameObject endUI;
     [SerializeField]
     private GameplayUI gameplayUiManager;
+    [SerializeField]
+    private EndUI endUiManager;
 
 
     public delegate void StartEvent();
@@ -47,5 +49,10 @@ public class UIManager : MonoBehaviour
     internal void UpdateStats(BaseState oldState, BaseState newState)
     {
         gameplayUiManager.OnStateUpdate(oldState, newState);
+    }
+
+    internal void ShowScoreboard(BaseState state, int bestScore)
+    {
+        endUiManager.DisplayScore(state, bestScore);
     }
 }

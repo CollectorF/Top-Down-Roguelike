@@ -19,11 +19,11 @@ public class CollisionHandler : MonoBehaviour
         controller = GetComponent<BaseCharacterController>();
     }
 
-    private float healthChangeValue
+    private int healthChangeValue
     {
         get => controller.starterInfo.Damage * -1;
     }
-    private float bonusChangeValue
+    private int bonusChangeValue
     {
         get => controller.starterInfo.Bonus;
     }
